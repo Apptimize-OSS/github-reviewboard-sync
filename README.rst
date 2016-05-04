@@ -5,17 +5,17 @@ github-reviewboard-sync
 .. image:: https://img.shields.io/pypi/v/github-reviewboard-sync.svg
         :target: https://pypi.python.org/pypi/github-reviewboard-sync
 
-.. image:: https://img.shields.io/travis/timmartin19/github-reviewboard-sync.svg
+.. image:: https://img.shields.io/travis/Apptimize-OSS/github-reviewboard-sync.svg
         :target: https://travis-ci.org/timmartin19/github-reviewboard-sync
 
 .. image:: https://readthedocs.org/projects/github-reviewboard-sync/badge/?version=latest
-        :target: https://readthedocs.org/projects/github-reviewboard-sync/?badge=latest
+        :target: http://github-reviewboard-sync.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 
 Syncs pull requests with ReviewBoard submissions allowing you to create a pull request and review board submission at the same time
 
-* Free software: ISC license
+* Free software: MIT license
 * Documentation: https://github-reviewboard-sync.readthedocs.org.
 
 Features
