@@ -24,14 +24,14 @@ class TestGetRelevantCommitShas(unittest2.TestCase):
     def test__when_merge__returns_empty_list(self):
         expected = []
 
-        log_output = 'commit {0}\nMerge'.format(sha1('a').hexdigest())
+        log_output = 'commit {0}\nMerge'.format(sha1(b'a').hexdigest())
         repo = Mock(git=Mock(log=Mock(return_value=log_output)))
         resp = _get_relevant_commit_shas(repo, 'doesnt', 'matter')
         self.assertListEqual(expected, resp)
 
     def test__when_multiple__returns_all(self):
-        first = sha1('a').hexdigest()
-        second = sha1('b').hexdigest()
+        first = sha1(b'a').hexdigest()
+        second = sha1(b'b').hexdigest()
         expected = [first, second]
 
         log_output = 'commit {0}\n\ncommit {1}\n'.format(first, second)
@@ -42,13 +42,13 @@ class TestGetRelevantCommitShas(unittest2.TestCase):
 
 class TestGetRelevantCommits(unittest2.TestCase):
     def setUp(self):
-        self.commit1 = Mock(hexsha=sha1('a').hexdigest())
-        self.commit2 = Mock(hexsha=sha1('b').hexdigest())
-        self.commit3 = Mock(hexsha=sha1('c').hexdigest())
+        self.commit1 = Mock(hexsha=sha1(b'a').hexdigest())
+        self.commit2 = Mock(hexsha=sha1(b'b').hexdigest())
+        self.commit3 = Mock(hexsha=sha1(b'c').hexdigest())
         self.repo = Mock(iter_commits=Mock(return_value=[self.commit1, self.commit2, self.commit3]))
 
     def test__when_no_shas_match__returns_empty_list(self):
-        shas = [sha1('d').hexdigest()]
+        shas = [sha1(b'd').hexdigest()]
         resp = _get_relevant_commits(self.repo, shas, 'notrelevant')
         self.assertListEqual([], resp)
 
