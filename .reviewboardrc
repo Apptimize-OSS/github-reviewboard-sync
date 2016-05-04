@@ -1,0 +1,5 @@
+REVIEWBOARD_URL = "https://reviewboard.apptimize.co"
+REPOSITORY = "github-reviewboard-sync"
+BRANCH = "master"
+LAND_DEST_BRANCH = "master"
+TARGET_GROUPS = "Eng"
