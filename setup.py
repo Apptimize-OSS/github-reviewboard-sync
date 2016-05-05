@@ -30,9 +30,11 @@ test_requirements = [
     'unittest2'
 ]
 
+version = '0.1.0'
+
 setup(
     name='github_reviewboard_sync',
-    version='0.1.0',
+    version=version,
     description='Syncs pull requests with ReviewBoard '
                 'submissions allowing you to create a pull request '
                 'and review board submission at the same time',
@@ -61,10 +63,13 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    entry_points = {
+    entry_points={
         'console_scripts': [
             'grs = github_reviewboard_sync.cli:cli'
         ]
+    },
+    extras_require={
+        'release': ['zest.releaser']
     },
     test_suite='tests',
     tests_require=test_requirements
