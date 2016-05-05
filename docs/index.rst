@@ -4,19 +4,20 @@
    contain the root `toctree` directive.
 
 Welcome to github-reviewboard-sync's documentation!
-======================================
+===================================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   readme
    installation
    usage
    contributing
    authors
    history
+
+.. include:: ./readme.rst
 
 Indices and tables
 ==================

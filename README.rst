@@ -19,6 +19,28 @@ Syncs pull requests with ReviewBoard submissions allowing you to create a pull r
 * Documentation: https://github-reviewboard-sync.readthedocs.org
 
 
+Overview
+--------
+
+This tool allows you to easily create a pull request and reviewboard submission at the same time
+
+.. code-block:: bash
+
+    grs open my-feature-branch --github-username=MyUsername
+
+If you want to compare against a different branch and open a pull request to that branch
+
+.. code-block:: bash
+
+    grs open my-feature-branch --base=version-branch -g MyUserName
+
+If you want to update an existing review board submission
+
+.. code-block:: bash
+
+    grs open my-feature-branch -u -g MyUserName
+
+
 Installation
 ------------
 
@@ -35,7 +57,9 @@ Or if you prefer
 Features
 --------
 
-* TODO
+* Opens a pull request on github with a sane name and message based on commits
+* Opens/updates a submission on review board with a sane summary and description based on commits
+* Adds github pull request url to review board submission and vice versa
 
 Credits
 ---------
