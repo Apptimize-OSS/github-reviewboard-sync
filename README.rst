@@ -16,7 +16,21 @@ github-reviewboard-sync
 Syncs pull requests with ReviewBoard submissions allowing you to create a pull request and review board submission at the same time
 
 * Free software: MIT license
-* Documentation: https://github-reviewboard-sync.readthedocs.org.
+* Documentation: https://github-reviewboard-sync.readthedocs.org
+
+
+Installation
+------------
+
+.. code-block:: bash
+
+    pip install github-reviewboard-sync
+
+Or if you prefer
+
+.. code-block:: bash
+
+    easy_install github-reviewboard-sync
 
 Features
 --------

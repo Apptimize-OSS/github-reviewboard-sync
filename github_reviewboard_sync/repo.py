@@ -25,6 +25,8 @@ def _get_relevant_commit_shas(repo, base, branch):
     :param unicode branch:
     :return: list[unicode]
     """
+    # regex for parsing the commit sha from the git log
+    # ignores merges
     regex = re.compile(r'commit ([a-z0-9]{40})\n(?!Merge)')
     git_log = repo.git.log('{0}..{1}'.format(base, branch))
     return re.findall(regex, git_log)
@@ -74,6 +76,7 @@ def construct_message(repo, base, branch):
     :rtype: unicode, unicode,
     """
     commit_shas = _get_relevant_commit_shas(repo, base, branch)
+    _LOG.debug('Relevant shas: {0}'.format(commit_shas))
     commits = _get_relevant_commits(repo, commit_shas, branch)
     return _construct_summary(commits), _get_messages(commits)
 
@@ -149,6 +152,7 @@ def push_repo(repo, branch, remote='origin', remote_branch=None):
     """
     remote_branch = remote_branch or branch
     _checkout_branch(repo, branch)
+    _LOG.info("Pushing all commits to remote '{0}'".format(remote))
     remote = _get_remote(repo, remote)
     try:
         remote.push(remote_branch, set_upstream=True)
@@ -168,6 +172,7 @@ def _checkout_branch(repo, branch):
     :rtype: git.refs.head.Head
     """
     branch = _get_branch(repo, branch)
+    _LOG.info('Checking out branch "{0}"'.format(branch.name))
     branch.checkout()
     return branch
 
@@ -189,6 +194,7 @@ def _merge_base_into_repo(repo, branch_name, base_name):
     # commits on the base that are not on the branch
     if not repo.git.log('{0}..{1}'.format(branch_name, base_name)):
         return
+    _LOG.info('Merging "{0}" into "{1}"'.format(base_name, branch_name))
     repo.git.merge(base_name, commit=True)
 
 

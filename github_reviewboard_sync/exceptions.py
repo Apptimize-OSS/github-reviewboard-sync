@@ -8,13 +8,13 @@ class SyncException(Exception):
     pass
 
 
-class MissingRemoteException(Exception):
+class MissingRemoteException(SyncException):
     pass
 
 
-class MissingBranchExcpetion(Exception):
+class MissingBranchExcpetion(SyncException):
     pass
 
 
-class PushFailedException(Exception):
+class PushFailedException(SyncException):
     pass
