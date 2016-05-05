@@ -12,6 +12,7 @@ from giturlparse import parse
 
 from github_reviewboard_sync.credentials import get_github_password
 from .repo import construct_message, get_repo
+from .exceptions import AuthenticationException
 
 _LOG = logging.getLogger(__name__)
 
@@ -29,8 +30,8 @@ def _get_org_and_name_from_remote(remote):
     if not url.endswith('.git'):
         url = '{0}.git'.format(url)
     git_info = parse(url)
-    _LOG.info('Repo owner: "{0}"'.format(git_info.owner))
-    _LOG.info('Repo name: "{0}"'.format(git_info.repo))
+    _LOG.debug('Repo owner: "{0}"'.format(git_info.owner))
+    _LOG.debug('Repo name: "{0}"'.format(git_info.repo))
     return git_info.owner, git_info.repo
 
 
@@ -100,13 +101,18 @@ def _instantiate_github(username):
     :rtype: Github
     """
     password = get_github_password(username)
+    count = 0
     while True:
+        count += 1
         github = Github(login_or_token=username, password=password)
         try:
             github.get_user().name
         except BadCredentialsException as exc:
             _LOG.error('The password was not valid for "{0}"'.format(username))
-            get_github_password(username, refresh=True)
+            if count == 3:
+                raise AuthenticationException('Failed to authenticate three times. '
+                                              'Is "{0}" the correct username?'.format(username))
+            password = get_github_password(username, refresh=True)
         else:
             break
     return github

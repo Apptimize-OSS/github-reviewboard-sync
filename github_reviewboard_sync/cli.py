@@ -1,5 +1,5 @@
 import logging
-from logging import config
+import logging.config
 
 import click
 
@@ -83,7 +83,7 @@ def _setup_logging(debug=False):
             'propagate': True
         }
 
-    config.dictConfig({
+    logging.config.dictConfig({
         'version': 1,
         'disable_existing_loggers': False,
         'formatters': {

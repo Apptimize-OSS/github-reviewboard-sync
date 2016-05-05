@@ -18,3 +18,7 @@ class MissingBranchExcpetion(SyncException):
 
 class PushFailedException(SyncException):
     pass
+
+
+class AuthenticationException(SyncException):
+    pass

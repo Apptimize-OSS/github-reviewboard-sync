@@ -58,5 +58,5 @@ def _parse_output(output):
     if not output:
         _LOG.error('Couldn\'t find the url, There may have been a failure')
     else:
-        _LOG.info('Successfully found submitted review request')
+        _LOG.debug('Successfully found submitted review request')
         return output.group(1)
