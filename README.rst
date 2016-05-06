@@ -39,13 +39,13 @@ If you want to compare against a different branch and open a pull request to tha
 
 .. code-block:: bash
 
-    grs open my-feature-branch --base=version-branch -g MyUserName
+    grs open my-feature-branch --base=version-branch
 
 If you want to update an existing review board submission
 
 .. code-block:: bash
 
-    grs open my-feature-branch -u -g MyUserName
+    grs open my-feature-branch -u
 
 
 Installation
