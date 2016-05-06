@@ -24,8 +24,8 @@ class TestCreateArgs(unittest2.TestCase):
             '--summary',
             "'{0}'".format(title),
             '--tracking-branch',
-            'remote/base',
-            'remote/base..remote/branch'
+            'base',
+            'base..branch'
         ]
         resp = _create_args(mock.Mock(), 'branch', 'base', 'remote')
         self.assertListEqual(expected, resp)
@@ -45,8 +45,8 @@ class TestCreateArgs(unittest2.TestCase):
             '--summary',
             "'{0}'".format(title),
             '--tracking-branch',
-            'remote/base',
-            'remote/base..remote/branch'
+            'base',
+            'base..branch'
         ]
         resp = _create_args(mock.Mock(), 'branch', 'base', 'remote', update=True)
         self.assertListEqual(expected, resp)
