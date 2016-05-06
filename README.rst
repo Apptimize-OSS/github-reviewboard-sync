@@ -28,6 +28,13 @@ This tool allows you to easily create a pull request and reviewboard submission 
 
     grs open my-feature-branch --github-username=MyUsername
 
+You can also simply provide an environment variable ``GITHUB_USERNAME`` instead of
+passing in your github username.  To add it to your bash profile simply run the following
+
+.. code-block:: bash
+
+    echo 'export GITHUB_USERNAME=MyUsername' >> ~/.bash_profile
+
 If you want to compare against a different branch and open a pull request to that branch
 
 .. code-block:: bash

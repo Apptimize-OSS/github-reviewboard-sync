@@ -40,8 +40,6 @@ def _create_args(repo, branch, base, remote, update=False, pull_url=None):
     """
     Creates the necessary arguments for the subprocess call
     """
-    base = '{0}/{1}'.format(remote, base)
-    branch = '{0}/{1}'.format(remote, branch)
     args = ['rbt', 'post', '-o']
     if update:
         args.append('-u')

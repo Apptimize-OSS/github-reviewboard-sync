@@ -5,6 +5,11 @@ from __future__ import unicode_literals
 
 from getpass import getpass
 import keyring
+import os
+
+
+def get_github_username():
+    return os.environ.get('GITHUB_USERNAME')
 
 
 def get_github_password(username, refresh=False):

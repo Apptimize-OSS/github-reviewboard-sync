@@ -4,9 +4,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import logging
+from uuid import uuid4
 
 from github import Github
-from github.GithubException import GithubException, BadCredentialsException
+from github.GithubException import GithubException, BadCredentialsException, TwoFactorException
 from git import Repo
 from giturlparse import parse
 
@@ -51,7 +52,7 @@ def _get_current_repo(github, repo, remote='origin'):
     return github.get_repo('{0}/{1}'.format(owner, repo))
 
 
-def _create_pull_request_helper(repo, remote_repo, branch, base):
+def _create_pull_request_helper(repo, remote_repo, branch, base, auth=None):
     """
     Creates a pull request to merge the branch into the base.
     Ignores the error if there is already a pull request open
@@ -106,16 +107,24 @@ def _instantiate_github(username):
         count += 1
         github = Github(login_or_token=username, password=password)
         try:
-            github.get_user().name
+            auth = github.get_user().create_authorization(
+                scopes=['repo'],
+                note='github-reviewboard-sync {0}'.format(str(uuid4())))
+            return github, auth
         except BadCredentialsException as exc:
             _LOG.error('The password was not valid for "{0}"'.format(username))
             if count == 3:
                 raise AuthenticationException('Failed to authenticate three times. '
                                               'Is "{0}" the correct username?'.format(username))
             password = get_github_password(username, refresh=True)
-        else:
-            break
-    return github
+        except TwoFactorException as exc:
+            user = github.get_user()
+            onetime_password = raw_input('Github 2-Factor code: ')
+            authorization = user.create_authorization(
+                scopes=['repo'],
+                note='github-reviewboard-sync {0}'.format(str(uuid4())),
+                onetime_password=onetime_password)
+            return Github(authorization.token), authorization
 
 
 def create_pull_request(path, branch, base, username, remote):
@@ -136,7 +145,7 @@ def create_pull_request(path, branch, base, username, remote):
         and the pull request could not be found
     :rtype: PullRequest
     """
-    github = _instantiate_github(username)
+    github, auth = _instantiate_github(username)
     repo = get_repo(path)
     remote_repo = _get_current_repo(github, repo, remote)
-    return _create_pull_request_helper(repo, remote_repo, branch, base)
+    return _create_pull_request_helper(repo, remote_repo, branch, base, auth=auth)
