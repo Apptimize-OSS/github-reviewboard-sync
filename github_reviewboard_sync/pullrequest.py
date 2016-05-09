@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import logging
 from uuid import uuid4
+from six.moves import input
 
 from github import Github
 from github.GithubException import GithubException, BadCredentialsException, TwoFactorException
@@ -119,7 +120,7 @@ def _instantiate_github(username):
             password = get_github_password(username, refresh=True)
         except TwoFactorException as exc:
             user = github.get_user()
-            onetime_password = raw_input('Github 2-Factor code: ')
+            onetime_password =input('Github 2-Factor code: ')
             authorization = user.create_authorization(
                 scopes=['repo'],
                 note='github-reviewboard-sync {0}'.format(str(uuid4())),

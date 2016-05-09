@@ -2,6 +2,7 @@ import logging
 import logging.config
 
 import click
+import six
 
 from github_reviewboard_sync.repo import merge_base_into_branch_and_push
 from github_reviewboard_sync.reviewboard import post_to_review_board
@@ -24,12 +25,12 @@ def cli():
 
 
 @cli.command()
-@click.argument('branch', type=unicode)
-@click.option('--base-branch', '-b', type=unicode, default='master',
+@click.argument('branch', type=six.text_type)
+@click.option('--base-branch', '-b', type=six.text_type, default='master',
               help='The branch you want to compare against')
-@click.option('--remote', '-r', type=unicode, default='origin',
+@click.option('--remote', '-r', type=six.text_type, default='origin',
               help='The remote that you wish create the pull request on')
-@click.option('--path', '-p', type=unicode, default=None,
+@click.option('--path', '-p', type=six.text_type, default=None,
               help='The path to the local git repository.   '
                    'Defaults to the current working directory')
 @click.option('--update', '-u', is_flag=True, default=False,
