@@ -30,7 +30,7 @@ test_requirements = [
     'unittest2'
 ]
 
-version = '0.1.5'
+version = '0.1.6.dev0'
 
 setup(
     name='github_reviewboard_sync',
