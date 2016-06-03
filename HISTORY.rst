@@ -2,7 +2,7 @@
 History
 =======
 
-0.1.5 (unreleased)
+0.1.5 (2016-06-03)
 ------------------
 
 - Nothing changed yet.
